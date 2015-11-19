@@ -1,0 +1,16 @@
+database:
+  driverClass: com.mysql.jdbc.Driver
+  url: jdbc:mysql://[YOUR MYSQL HERE]
+  user: [YOUR DB USER]
+  password: [YOUR DB PASSWORD]
+  properties:
+    charSet: UTF-8
+  validationQuery: "SELECT 1"
+
+
+logging:
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+    org.skife.jdbi.v2: TRACE
