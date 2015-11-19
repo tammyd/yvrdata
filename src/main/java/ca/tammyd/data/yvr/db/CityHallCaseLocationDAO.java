@@ -20,4 +20,13 @@ public interface CityHallCaseLocationDAO {
 
     @SqlQuery("select * from case_location_details LIMIT :offset,:count")
     List<CityHallCaseLocation> get(@Bind("offset") int offset, @Bind("count") int count);
+
+    @SqlQuery("select distinct(Department) from case_location_details")
+    List<String> getDepartments();
+
+    @SqlQuery("select distinct(Division) from case_location_details")
+    List<String> getDivisions();
+
+    @SqlQuery("select distinct(Case_Type) from case_location_details")
+    List<String> getCaseTypes();
 }

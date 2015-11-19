@@ -4,12 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class Result {
-
-    @JsonProperty
-    public int getCount() {
-        return this.data.size();
-    }
+public class RecordsResult extends ListResult {
 
     @JsonProperty
     protected int page;
@@ -22,19 +17,8 @@ public class Result {
 
     protected int pageLength;
 
-
-    public Result(List data) {
-        this.data = data;
-    }
-
-    public Result setRecords(List data) {
-        this.data = data;
-
-        return this;
-    }
-
-    public List getData() {
-        return this.data;
+    public RecordsResult(List data) {
+        super(data);
     }
 
     public int getTotalCount() {
@@ -50,7 +34,7 @@ public class Result {
         }
     }
 
-    public Result setTotalCount(int totalCount) {
+    public RecordsResult setTotalCount(int totalCount) {
         this.totalCount = totalCount;
 
         return this;
@@ -60,14 +44,14 @@ public class Result {
         return page;
     }
 
-    public Result setPage(int page) {
+    public RecordsResult setPage(int page) {
         this.page = page;
 
         return this;
     }
 
 
-    public Result setPageLength(int pageLength) {
+    public RecordsResult setPageLength(int pageLength) {
         this.pageLength = pageLength;
 
         return this;

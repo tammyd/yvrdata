@@ -1,6 +1,7 @@
 package ca.tammyd.data.yvr.resources;
 
-import ca.tammyd.data.yvr.api.Result;
+import ca.tammyd.data.yvr.api.ListResult;
+import ca.tammyd.data.yvr.api.RecordsResult;
 import ca.tammyd.data.yvr.core.CityHallCaseLocation;
 import ca.tammyd.data.yvr.db.CityHallCaseLocationDAO;
 
@@ -24,14 +25,14 @@ public class CityHallResource {
         this.totalRecords = this.cityHallDAO.getTotalRecordCount();
     }
 
-    protected Result buildResult(List data, int page) {
-        return new Result(data).setPageLength(this.PAGE_LENGTH)
+    protected RecordsResult buildResult(List data, int page) {
+        return new RecordsResult(data).setPageLength(this.PAGE_LENGTH)
                 .setTotalCount(this.totalRecords)
                 .setPage(page);
     }
 
     @GET
-    public Result get(@QueryParam("page") int page) {
+    public RecordsResult get(@QueryParam("page") int page) {
         if (page < 1) { page = 1; }
         int offset = (page - 1) * this.PAGE_LENGTH;
         ArrayList<CityHallCaseLocation> data = (ArrayList<CityHallCaseLocation>) this.cityHallDAO.get(offset, this.PAGE_LENGTH);
@@ -42,13 +43,31 @@ public class CityHallResource {
 
     @GET
     @Path("/{id}")
-    public Result findById(@PathParam("id") int id) {
+    public RecordsResult findById(@PathParam("id") int id) {
 
         CityHallCaseLocation record = this.cityHallDAO.findById(id);
         ArrayList<CityHallCaseLocation> data = new ArrayList<>();
         data.add(record);
 
         return this.buildResult(data, 1).setTotalCount(1);
+    }
 
+    @GET
+    @Path("departments")
+    public ListResult getDepartments() {
+        return new ListResult(this.cityHallDAO.getDepartments());
+    }
+
+    @GET
+    @Path("divisions")
+    public ListResult getDivisions() {
+        return new ListResult(this.cityHallDAO.getDivisions());
+    }
+
+
+    @GET
+    @Path("case_types")
+    public ListResult getCaseTypes() {
+        return new ListResult(this.cityHallDAO.getCaseTypes());
     }
 }
