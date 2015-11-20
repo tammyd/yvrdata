@@ -6,27 +6,24 @@ import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
+import org.skife.jdbi.v2.sqlobject.stringtemplate.UseStringTemplate3StatementLocator;
 
 import java.util.List;
 
+@UseStringTemplate3StatementLocator
 @RegisterMapper(CityHallCaseLocationMapper.class)
-public interface CityHallCaseLocationDAO {
+public abstract class CityHallCaseLocationDAO extends YVRDataDAO {
 
-    @SqlQuery("select count(*) from case_location_details")
-    int getTotalRecordCount();
-
-    @SqlQuery("select * from case_location_details where id = :id")
-    CityHallCaseLocation findById(@Bind("id") int id);
-
-    @SqlQuery("select * from case_location_details LIMIT :offset,:count")
-    List<CityHallCaseLocation> get(@Bind("offset") int offset, @Bind("count") int count);
+    public CityHallCaseLocationDAO() {
+        super("case_location_details");
+    }
 
     @SqlQuery("select distinct(Department) from case_location_details")
-    List<String> getDepartments();
+    public abstract List<String> getDepartments();
 
     @SqlQuery("select distinct(Division) from case_location_details")
-    List<String> getDivisions();
+    public abstract List<String> getDivisions();
 
     @SqlQuery("select distinct(Case_Type) from case_location_details")
-    List<String> getCaseTypes();
+    public abstract List<String> getCaseTypes();
 }
