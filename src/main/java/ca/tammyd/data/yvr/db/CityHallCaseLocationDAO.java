@@ -18,12 +18,16 @@ public abstract class CityHallCaseLocationDAO extends YVRDataDAO {
         super("case_location_details");
     }
 
-    @SqlQuery("select distinct(Department) from case_location_details")
-    public abstract List<String> getDepartments();
+    public List<String> getDepartments() {
+        return _getDistinctStringFieldValue("case_location_details", "Department");
+    }
 
-    @SqlQuery("select distinct(Division) from case_location_details")
-    public abstract List<String> getDivisions();
+    public List<String> getDivisions() {
+        return _getDistinctStringFieldValue("case_location_details", "Division");
+    }
 
-    @SqlQuery("select distinct(Case_Type) from case_location_details")
-    public abstract List<String> getCaseTypes();
+    public List<String> getCaseTypes() {
+        return _getDistinctStringFieldValue("case_location_details", "Case_Type");
+    }
+    
 }

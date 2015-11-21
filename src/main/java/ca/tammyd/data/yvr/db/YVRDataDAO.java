@@ -28,6 +28,9 @@ public abstract class YVRDataDAO {
     @SqlQuery("select * from <table> LIMIT :offset,:count")
     abstract List<CityHallCaseLocation> _get(@Define("table") String table, @Bind("offset") int offset, @Bind("count") int count);
 
+    @SqlQuery("select distinct(<field>) from <table>")
+    abstract List<String> _getDistinctStringFieldValue(@Define("table") String table, @Define("field") String field);
+
     public int getTotalRecordCount() {
         return _getTotalRecordCount(this.tableName);
     }
@@ -39,7 +42,6 @@ public abstract class YVRDataDAO {
     public List<CityHallCaseLocation> get(int offset, int count) {
         return _get(this.tableName, offset, count);
     }
-
 
 
 }
