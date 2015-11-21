@@ -35,7 +35,7 @@ public class CityHallResource {
     public RecordsResult get(@QueryParam("page") int page) {
         if (page < 1) { page = 1; }
         int offset = (page - 1) * this.PAGE_LENGTH;
-        ArrayList<CityHallCaseLocation> data = (ArrayList<CityHallCaseLocation>) this.cityHallDAO.get(offset, this.PAGE_LENGTH);
+        ArrayList<CityHallCaseLocation> data =  (ArrayList) this.cityHallDAO.get(offset, this.PAGE_LENGTH);
 
         return this.buildResult(data, page);
 

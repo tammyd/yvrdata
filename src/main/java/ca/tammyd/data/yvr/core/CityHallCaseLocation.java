@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 
-public class CityHallCaseLocation {
+public class CityHallCaseLocation implements SqlQueryRecordResult {
 
     @JsonProperty protected int id;
     @JsonProperty protected int year;
@@ -41,12 +41,12 @@ public class CityHallCaseLocation {
         return id;
     }
 
-    @JsonProperty public DateTime getDate() {
-        return new DateTime(year, month, day, hour, min, DateTimeZone.forID("America/Los_Angeles"));
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    @JsonProperty public DateTime getDate() {
+        return new DateTime(year, month, day, hour, min, DateTimeZone.forID("America/Los_Angeles"));
     }
 
     public int getYear() {

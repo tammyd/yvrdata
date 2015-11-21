@@ -5,6 +5,7 @@ import ca.tammyd.data.yvr.core.CityHallCaseLocationMapper;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
+import org.skife.jdbi.v2.sqlobject.customizers.Define;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.stringtemplate.UseStringTemplate3StatementLocator;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @UseStringTemplate3StatementLocator
 @RegisterMapper(CityHallCaseLocationMapper.class)
-public abstract class CityHallCaseLocationDAO extends YVRDataDAO {
+public abstract class CityHallCaseLocationDAO extends YVRDataDAO<CityHallCaseLocation, String> {
 
     public CityHallCaseLocationDAO() {
         super("case_location_details");
@@ -29,5 +30,5 @@ public abstract class CityHallCaseLocationDAO extends YVRDataDAO {
     public List<String> getCaseTypes() {
         return _getDistinctStringFieldValue("case_location_details", "Case_Type");
     }
-    
+
 }
