@@ -12,7 +12,7 @@ import org.skife.jdbi.v2.sqlobject.stringtemplate.UseStringTemplate3StatementLoc
 import java.util.List;
 
 @UseStringTemplate3StatementLocator
-public abstract class YVRDataDAO<T1, T2> {
+public abstract class YVRDataDAO<S, T> {
 
     public String tableName = "";
 
@@ -24,13 +24,13 @@ public abstract class YVRDataDAO<T1, T2> {
     abstract int _getTotalRecordCount(@Define("table") String table);
 
     @SqlQuery("select * from <table> where id = :id")
-    abstract T1 _findById(@Define("table") String table, @Bind("id") int id);
+    abstract S _findById(@Define("table") String table, @Bind("id") int id);
 
     @SqlQuery("select * from <table> LIMIT :offset,:count")
-    abstract List<T1> _get(@Define("table") String table, @Bind("offset") int offset, @Bind("count") int count);
+    abstract List<S> _get(@Define("table") String table, @Bind("offset") int offset, @Bind("count") int count);
 
     @SqlQuery("select distinct(<field>) from <table>")
-    abstract List<T2> _getDistinctStringFieldValue(@Define("table") String table, @Define("field") String field);
+    abstract List<T> _getDistinctStringFieldValue(@Define("table") String table, @Define("field") String field);
 
     //@SqlQuery("select count(id) as total, <fields> from <table> group by <fields> order by total desc;")
 
@@ -38,11 +38,11 @@ public abstract class YVRDataDAO<T1, T2> {
         return _getTotalRecordCount(this.tableName);
     }
 
-    public T1 findById(int id) {
+    public S findById(int id) {
         return _findById(this.tableName, id);
     }
 
-    public List<T1> get(int offset, int count) {
+    public List<S> get(int offset, int count) {
         return _get(this.tableName, offset, count);
     }
 
